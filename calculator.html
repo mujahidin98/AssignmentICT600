@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BMI Calculator - Corporate</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #152C55;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.container {
+  margin: 20px;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+  /* Animation */
+  animation-name: fade-in;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #152C55;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #152C55;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #152C55;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#result {
+  font-weight: bold;
+  text-align: center;
+  font-size: 24px;
+  margin-top: 30px;
+  color: #152C55;
+}
+
+.commercial {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.commercial h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #152C55;
+}
+
+.commercial p {
+  text-align: center;
+  color: #152C55;
+}
+
+.profile-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-link a {
+  text-decoration: none;
+  color: #152C55;
+}
+
+.profile-link a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BMI Calculator</h1>
+  </header>
+  
+  <div class="container">
+    <h2>Calculate Your BMI</h2>
+    <form>
+      <label for="weight">Weight (kg):</label>
+      <input type="text"id="weight"placeholder="Enter your weight">
+      <br>
+      <br>
+      <label for="height">Height (cm):</label>
+      <input type="text"id="height"placeholder="Enter your height">
+      <br>
+      <br>
+      <label for="age">Age:</label>
+      <input type="text"id="age"placeholder="Enter your age">
+      <br>
+      <br>
+      <label for="gender">Gender:</label>
+      <input type="radio" name="gender" id="male" value="male" checked> Male
+      <input type="radio" name="gender" id="female" value="female"> Female
+      <br>
+      <br>
+
+      <style>
+        .checkbox-label {
+          display: block;
+          overflow: hidden;
+        }
+      
+        .checkbox-label input[type="checkbox"] {
+          float: right;
+          margin-left: 5px;
+        }
+      </style>
+      
+      <label class="checkbox-label" for="sleep">
+        <span>Lifestyle:</span>
+        <br>
+        <br>
+        <style>
+          .checkbox-label {
+            display: block;
+            overflow: hidden;
+          }
+        
+          .checkbox-label input[type="checkbox"] {
+            float: right;
+            margin-left: 5px;
+          }
+        </style>
+        
+        <label class="checkbox-label" for="sleep">
+          8 hours of sleep
+          <input type="checkbox" id="sleep" name="lifestyle" value="sleep">
+        </label>
+        
+        <label class="checkbox-label" for="hydration">
+          Stay hydrated
+          <input type="checkbox" id="hydration" name="lifestyle" value="hydration">
+        </label>
+        
+        <label class="checkbox-label" for="exercise">
+          5000 steps walking daily
+          <input type="checkbox" id="exercise" name="lifestyle" value="exercise">
+        </label> 
+        <br>
+        <div style="text-align: center;">
+          <button type="button" id="calculate-btn" onclick="calculateBMI()">Calculate</button>
+        </div>
+    
+        <p id="result"></p>
+        <p id="motivation"></p>
+    
+      </div>
+    
+      <div class="commercial">
+       <h2>Stay Healthy, Stay Fit!</h2>
+        <p>Use our BMI Calculator to monitor your body mass index and maintain a healthy lifestyle.</p>
+      
+        <div class="profile-link">
+          <a href="profile.html">Back to Profile</a>
+      
+      </div>
+      
+
+    
+    </form>
+
+  </div>  
+
+  </div>
+  
+  <script>
+    document.getElementById('calculate-btn').addEventListener('click', function() {
+      var weight = parseFloat(document.getElementById("weight").value);
+      var height = parseFloat(document.getElementById("height").value);
+      var gender = document.querySelector('input[name="gender"]:checked');
+      var age = parseInt(document.getElementById("age").value);
+  
+      // Check if any required fields are empty
+      if (!weight || !height || !gender || !age) {
+        alert("Please fill in all the required fields.");
+        return;
+      }
+  
+      var checkboxes = document.querySelectorAll('input[name="lifestyle"]:checked');
+      var lifestyle = [];
+      checkboxes.forEach(function(checkbox) {
+        lifestyle.push(checkbox.value);
+      });
+  
+      var bmi = weight / ((height / 100) * (height / 100));
+      var healthRisk = calculateHealthRisk(bmi, age, gender.value, lifestyle);
+  
+      // Redirect to the result page with query parameters
+      var url = 'result.html' +
+        '?bmi=' + encodeURIComponent(bmi.toFixed(2)) +
+        '&healthRisk=' + encodeURIComponent(healthRisk);
+      window.location.href = url;
+    });
+  
+
+    function calculateHealthRisk(bmi, age, gender, lifestyle) {
+      var healthRisk = "";
+      if (bmi < 18.5) {
+        healthRisk = "Health Risk: Underweight";
+      } else if (bmi >= 18.5 && bmi < 25) {
+        healthRisk = "Health Risk: Normal weight";
+      } else if (bmi >= 25 && bmi < 30) {
+        healthRisk = "Health Risk: Overweight";
+      } else {
+        healthRisk = "Health Risk: Obese";
+      }
+  
+      // Return the health risk as a string
+      return healthRisk;
+    }
+  
+    function getMotivationalMessage(healthRisk) {
+      var message = "";
+      if (healthRisk.includes("Underweight")) {
+        message = "You are underweight. Consider consulting a nutritionist for a balanced diet.";
+      } else if (healthRisk.includes("Normal weight")) {
+        message = "Congratulations! You are in the normal weight range. Keep up the good work!";
+      } else if (healthRisk.includes("Overweight")) {
+        message = "You are overweight. Regular exercise and a healthy diet can help you maintain a healthy weight.";
+      } else {
+        message = "You are obese. It's important to prioritize your health and consult a healthcare professional.";
+      }
+      
+      return message;
+    }
+  </script>
+  
+</body>
+</html>

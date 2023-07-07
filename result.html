@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BMI Calculator - Result</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+       body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #152C55;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.container {
+  margin: 20px;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+  /* Animation */
+  animation-name: fade-in;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #152C55;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #152C55;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #152C55;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#result {
+  font-weight: bold;
+  text-align: center;
+  font-size: 24px;
+  margin-top: 30px;
+  color: #152C55;
+}
+
+.commercial {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.commercial h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #152C55;
+}
+
+.commercial p {
+  text-align: center;
+  color: #152C55;
+}
+
+.profile-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-link a {
+  text-decoration: none;
+  color: #152C55;
+}
+
+.profile-link a:hover {
+  text-decoration: underline;
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BMI Calculator - Result</h1>
+  </header>
+
+  <div class="container">
+    <h2>Result</h2>
+
+    <p id="result"></p>
+    <p id="motivation"></p>
+  </div>
+
+  <div class="profile-link">
+    <a href="profile.html">Back to Profile</a>
+  </div>
+
+  <script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve BMI and health risk from query parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    var bmi = parseFloat(urlParams.get('bmi'));
+    var healthRisk = urlParams.get('healthRisk');
+  
+    // Display BMI and health risk on the result page
+    var resultElement = document.getElementById("result");
+    resultElement.innerHTML = "Your BMI: " + bmi.toFixed(2) + "<br>" + healthRisk;
+  
+    var motivationElement = document.getElementById("motivation");
+    motivationElement.innerHTML = getMotivationalMessage(healthRisk);
+  });
+  
+  function getMotivationalMessage(healthRisk) {
+    var message = "";
+  
+    // Add your logic here to generate motivational messages based on health risk
+    // Example logic:
+    if (healthRisk.includes("Underweight")) {
+      message = "You are underweight. Consider consulting a nutritionist for a balanced diet.";
+    } else if (healthRisk.includes("Normal weight")) {
+      message = "Congratulations! You are in the normal weight range. Keep up the good work!";
+    } else if (healthRisk.includes("Overweight")) {
+      message = "You are overweight. Regular exercise and a healthy diet can help you maintain a healthy weight.";
+    } else {
+      message = "You are obese. It's important to prioritize your health and consult a healthcare professional.";
+    }
+  
+    // Return the motivational message
+    return message;
+  }
+  
+
+  </script>
+</body>
+</html>
